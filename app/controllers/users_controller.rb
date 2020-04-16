@@ -7,6 +7,6 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    @book = Book.first
+    @books = Book.all # 後々ここで特定の属性だけを取り出すようにする.Book.find(hoge)とかでいいのかな？
   end
 end
