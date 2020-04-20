@@ -8,4 +8,9 @@ html
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
 
-  body = yield
+    header.navbar
+      div.container
+        li =link_to "Home", "/users/#{current_user.id}"
+        li =link_to "login/logout", "#"
+  div.container
+    = yield

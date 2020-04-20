@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   get 'books/show'
   get 'books/index'
   resources :books
-  
+
+  post "likes/:book_id/create" => "likes#create"
+  post "likes/:book_id/destroy" => "likes#destroy"
+  resources :likes
+
   root 'sessions#new'
 end

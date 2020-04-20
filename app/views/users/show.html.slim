@@ -1,15 +1,23 @@
 h4 Emailアドレス
 h4 = @user.email
-
-div.container
-  h3 '本の一覧'
-  table
-    tbody
-      - @books.each do |book|
-        tr 
-          th 
-            = link_to book.title, book_path(:book_id => book.id)
-
-    
-  あといいね機能など
-  h3 = link_to "いいねした本一覧", "hoge"
+body
+  div.container
+    h3 本一覧
+    table
+      tbody
+        - @books.each do |book|
+          tr
+            th
+              = link_to book.title, "/books/#{book.id}"
+          tr
+            th
+              = link_to "/books/#{book.id}" do
+                = image_tag "/book_images/#{book.image_name}",:height =>'300'
+          tr
+            th
+              - if Like.find_by(user_id: @current_user.id, book_id: book.id)
+                = link_to("いいね！済み", "/likes/#{book.id}/destroy", {method: "post"})
+              - else
+                = link_to("いいね！", "/likes/#{book.id}/create", {method: "post"})
+    p あといいね機能など
+    h3 = link_to "いいねした本一覧", "/likes"

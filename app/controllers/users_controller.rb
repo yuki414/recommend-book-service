@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_login
+  
   def new
   end
 
@@ -7,6 +9,6 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    @books = Book.all # 後々ここで特定の属性だけを取り出すようにする.Book.find(hoge)とかでいいのかな？
+    @books = Book.all.order(created_at: :desc) # 後々ここで特定の属性だけを取り出すようにする.Book.find(hoge)とかでいいのかな？
   end
 end

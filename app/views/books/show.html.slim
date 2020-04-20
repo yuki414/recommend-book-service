@@ -2,8 +2,11 @@ h1 Books#show
 
 body
   div.container
-    p
-    タイトル
     h2 = @book.title
-    本の概要
-    h4 = @book.description
+    img src= "/book_images/#{@book.image_name}" width="300"
+    p 本の概要
+    h5 = @book.description
+    - if Like.find_by(user_id: @current_user.id, book_id: @book.id)
+        = link_to("いいね！済み", "/likes/#{@book.id}/destroy", {method: "post"})
+    - else
+        = link_to("いいね！", "/likes/#{@book.id}/create", {method: "post"})

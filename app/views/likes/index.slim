@@ -1,0 +1,23 @@
+body
+  h1 いいねした本の一覧 
+  div.container
+    h3 本一覧
+    / = Book.find(@likes.book_id)
+    table
+      tbody
+        - @likes.each do |like|
+          tr
+            th
+              = link_to Book.find(like.book_id).title, "/books/#{like.book_id}"
+          tr
+            th
+              = link_to "/books/#{like.book_id}" do
+                = image_tag "/book_images/#{Book.find(like.book_id).image_name}",:height =>'300'
+          tr
+            th
+              - if Like.find_by(user_id: @current_user.id, book_id: like.book_id)
+                = link_to("いいね！済み", "/likes/#{like.book_id}/destroy", {method: "post"})
+              - else
+                = link_to("いいね！", "/likes/#{like.book_id}/create", {method: "post"})
+  / - @likes.each do |like|
+  /   h4 = Book.find(like.book_id).title
